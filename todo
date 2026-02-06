@@ -8,7 +8,9 @@ merge
 generate_final_paper_plots
 產生圖表
 
+git status
 git add .
 git commit -m 'updates'
-git tag -a v1.0 -m 'updates'
-git push origin v1.0
+git push origin main
+git tag -a v1.1 -m 'updates'
+git push origin v1.1

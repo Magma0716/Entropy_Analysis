@@ -12,10 +12,12 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import r2_score
 
 # 讀取csv
-df = pd.read_csv('AES-CTR_10000.csv')
+path = 'RC4_20000_1024bytes'
+
+df = pd.read_csv(f'{path}.csv')
 
 # 輸⼊特徵(X)
-cols = [f'byte_{i}' for i in range(128)]
+cols = [f'byte_{i}' for i in range(1024)]
 X_bytes = df[cols].values.astype(np.uint8)
 X_bits = np.unpackbits(X_bytes, axis=1).astype('float32')
 X = np.expand_dims(X_bits, axis=-1)
@@ -58,16 +60,17 @@ def residual_block(x, filters, kernel_size=3, l2_reg=1e-6):
     x = layers.Activation('relu')(x)
     return x
     
-def CNN(input_shape=(1024, 1), output_dim=15, l2_reg=1e-6):
+def CNN(input_shape=(8192, 1), output_dim=15, l2_reg=1e-6):
     inputs = layers.Input(shape=input_shape)
     
     # layer 1
     x = layers.Conv1D(
-        64, kernel_size=7, strides=2, padding='same',
+        64, kernel_size=15, strides=4, padding='same',
         kernel_regularizer=regularizers.l2(l2_reg)
     )(inputs)
     x = layers.BatchNormalization()(x)
     x = layers.Activation('relu')(x)
+    x = layers.MaxPooling1D(pool_size=4)(x)
     
     # layer 2
     x = residual_block(x, 64)
@@ -141,7 +144,7 @@ np.save('y_pred.npy', y_pred)
 
 results_df.to_csv('r2_results.csv', index=False)
 
-model.save('AES-CTR_10000.keras')
+model.save(f'{path}.keras')
 
 print('\n資料儲存成功')
 

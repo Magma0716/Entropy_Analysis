@@ -3,7 +3,7 @@ import subprocess
 import tempfile
 import numpy as np
 import pandas as pd
-from tqdm.notebook import tqdm
+from tqdm import tqdm
 from multiprocessing import Pool, cpu_count
 from Crypto.Cipher import AES, ARC4
 from Crypto.Random import get_random_bytes
@@ -17,7 +17,7 @@ import time
 # https://github.com/dj-on-github/sp800_22_tests
 
 # --- 輸出檔案 ---
-OUTPUT_CSV_PATH = "AES-CTR_10000.csv"
+OUTPUT_CSV_PATH = "AES-CTR_20000_1024bytes.csv"
 
 # --- 演算法選擇 ---
 # 在列表中放入您想運行的演算法名稱，可以單選或多選。
@@ -26,7 +26,7 @@ ALGORITHMS_TO_RUN = ["AES-CTR"]
 
 # --- 整體樣本數設定 ---
 # 這是您「最終」希望每個演算法擁有的總樣本數。
-TOTAL_SAMPLES_PER_ALG = 10000
+TOTAL_SAMPLES_PER_ALG = 20000
 
 # --- 分段生成設定 (使用 1-based 索引，更直觀) ---
 # 設定您「這一次」要生成從第幾筆到第幾筆的數據。
@@ -34,14 +34,14 @@ TOTAL_SAMPLES_PER_ALG = 10000
 # 第二次運行可設為 START_INDEX = 1001, END_INDEX = 2000
 # ...以此類推
 START_INDEX = 1
-END_INDEX = 10000 # 為了示範，先設一個較小的值
+END_INDEX = 20000
 
 # --- 其他參數 ---
 # B = 1048576
 # tmp = int(MB * 1.5)
 mill_bits_into_bytes = 1000000 / 8
-REPO_DIR         = "./sp800_22_tests"
-STREAM_LEN_BYTES = int(128)
+REPO_DIR         = r"/home/a0919/Entropy_Analysis/sp800_22_tests"
+STREAM_LEN_BYTES = int(1024)
 
 
 # =================================================================================
