@@ -1,0 +1,16 @@
+Test,R2
+monobit_test,0.571068168
+frequency_within_block_test,0.537767231
+cumulative_sums_test,0.447903395
+random_excursion_test,0.136654794
+serial_test,0.097795844
+approximate_entropy_test,0.087438047
+random_excursion_variant_test,0.027820826
+non_overlapping_template_matching_test,0.003362715
+binary_matrix_rank_test,0
+linear_complexity_test,0
+maurers_universal_test,0
+overlapping_template_matching_test,0
+runs_test,-0.001077056
+longest_run_ones_in_a_block_test,-0.010388494
+dft_test,-0.0113554
